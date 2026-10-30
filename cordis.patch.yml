@@ -1,0 +1,5 @@
+# Mount the plugin. This is the smallest patch DSH accepts: a bundle must insert
+# the row that loads it. No config, no other rows.
+- insert:
+    - id: dsh-skills-ppt
+      name: 'dsh-skills-ppt'

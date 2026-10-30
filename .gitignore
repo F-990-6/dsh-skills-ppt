@@ -1,0 +1,11 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.venv/
+__pycache__/
+*.pyc
+*.pptx
+*.mp4
+*.wav
+.DS_Store
