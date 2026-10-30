@@ -30,8 +30,6 @@ dsh plugin --profile <你的 profile> add ./dsh-skills-ppt
 
 装完重启 DSH（新增 bundle 不会热加载）。
 
-装完重启 DSH（新增 bundle 不会热加载）。
-
 ## 触发方式
 
 **正常说需求就行**，识别到 PPT 相关任务会自动加载：
@@ -54,8 +52,8 @@ ctx.skills.register({
   name: 'ppt-master',
   description,
   whenToUse,
-  content: body,                                  // SKILL.md 正文
-  resourceBase: { kind: 'directory', path: dir }, // 相对路径的基准目录
+  content: composeContent(body, layer),             // SKILL.md 正文 + DSH 层
+  resourceBase: { kind: 'directory', path: dir },   // 相对路径的基准目录
   invocation: { modelInvocable: true, userInvocable: true },
 })
 ```
@@ -65,6 +63,32 @@ ctx.skills.register({
 - 技能出现在会话技能目录里，模型看到 `description` 和 `whenToUse` 后自行决定是否加载
 - 加载后拿到的「技能基准目录」指向 `skill/ppt-master/`，里面的 `scripts/`、`templates/` 全部可用
 - 不需要开启 `dsh-skill-filesystem`，也不往任何系统目录里拷文件——技能跟着插件走，卸载即消失
+
+## 叙事骨架（DSH 层）
+
+上游 ppt-master 管「页面怎么做」，不管「论证怎么立」。2026-10-30 的结论是：视觉高级但没有数字论证的稿子会被判不合格。所以本插件把一层 DSH 规则拼进技能正文的最前面（`skill/ppt-master/DSH_LAYER.md`，注册时注入 `content`，排在 upstream 所有章节之前），把「四拍」固定下来：
+
+| 拍 | 页面任务 |
+|---|---|
+| `hook` 钩子数字 | 封面用一个可溯源数字把规模说实，标题许结果 |
+| `conflict` 对立冲突 | 两个同量纲的耗时对撞，并写出因此损失什么 |
+| `method` 逐条对应 | 每个方法条目对应上一页的一个耗时（`Mapping:`） |
+| `evidence` 真实数据 + 边界 | 统计 + 时间窗 + 来源，并明确说清它不能证明什么 |
+
+硬规则：任何数字必须带 `Fact IDs` / `Source` / `Data class: scenario` 之一；边界不可省；绝对成功词（全中、100%）没有分母就删掉；只做视觉的稿子会被拦。
+
+- **触发**：客户演示、产品评审、立项 / 结项、路演、复盘、竞品对比、提案、卖点介绍。教学、参考、状态汇报默认不套，用户明确要求才套。Default 的 `design_spec.md` §III 无论套不套都记一行（`off — <原因>` 也是明确答案）；Quick 只在套用时写 `narrative.md`。
+- **不想用时**：在计划里写 `- **Narrative spine**: off — <原因>`，检查器按「不适用」放行。
+- **细则与反例**：`skill/ppt-master/references/dsh-narrative.md`；四页示例来自 `E:\dsh\projects\fjtcm-svc-demo_20261030`。
+- **确定性检查**（Default 在 Gate 1 之后、Quick 在导出之前）：
+
+```bash
+python skill/ppt-master/scripts/dsh_narrative_check.py <项目目录> --require
+```
+
+它读 `design_spec.md`，没有 spec 时读 `narrative.md`（Quick 的论证合同）。返回非零就改计划，不要改页面 SVG。
+
+上游文件只增补了 `narrative.md` 的所有权登记；`SKILL.md` 一个字没动，更新上游时可干净合并。
 
 ## 依赖
 
@@ -80,8 +104,11 @@ python -m pip install -r skill/ppt-master/requirements.txt
 
 ```
 dsh-skills-ppt/
-├── lib/index.js            # 插件入口：读 SKILL.md 并注册技能
+├── lib/index.js            # 插件入口：读 SKILL.md + DSH_LAYER.md 并注册技能
 ├── skill/ppt-master/       # 上游技能本体（SKILL.md + scripts + templates）
+│   ├── DSH_LAYER.md        # 本插件加的叙事层，注册时插到技能正文最前
+│   ├── references/dsh-narrative.md      # 四拍细则、字段、反例
+│   └── scripts/dsh_narrative_check.py   # 叙事骨架的确定性检查
 ├── cordis.patch.yml        # 唯一的一行装配：插入本插件
 ├── package.json
 └── README.md
