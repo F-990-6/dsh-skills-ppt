@@ -32,6 +32,14 @@
     "presentation"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F-990-6/dsh-skills-ppt.git"
+  },
+  "homepage": "https://github.com/F-990-6/dsh-skills-ppt#readme",
+  "bugs": {
+    "url": "https://github.com/F-990-6/dsh-skills-ppt/issues"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
