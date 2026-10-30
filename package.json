@@ -1,6 +1,6 @@
 {
   "name": "dsh-skills-ppt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "PPT skill pack for DeepSeek Harness: bundles the ppt-master workflow as a runtime skill, so any PPT request loads it on demand.",
   "type": "module",
   "main": "lib/index.js",
