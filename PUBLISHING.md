@@ -1,10 +1,13 @@
 # 发布指南
 
+> **当前分发方式：只用 GitHub。** 仓库已推送，安装走 `dsh plugin add github:F-990-6/dsh-skills-ppt`。
+> 下文的 npm 部分是备选方案，暂时不发。
+
 本地仓库已经初始化并完成首次提交（`main` 分支，12,871 个文件，`.git` 14.4 MB）。
 
 ## 0. 先改两处身份信息
 
-`package.json` 里补上你自己的仓库地址，npm 页面的「Repository」链接靠它：
+`package.json` 里补上你自己的仓库地址，npm 页面的「Repository」链接靠它（已填好 F-990-6）：
 
 ```json
 "repository": { "type": "git", "url": "git+https://github.com/<你>/dsh-skills-ppt.git" },

@@ -15,9 +15,20 @@
 
 ## 安装
 
+从 GitHub 直接装（推荐）：
+
 ```bash
-dsh plugin --profile <你的 profile> add dsh-skills-ppt
+dsh plugin --profile <你的 profile> add github:F-990-6/dsh-skills-ppt
 ```
+
+或者先克隆到本地，再按路径装：
+
+```bash
+git clone https://github.com/F-990-6/dsh-skills-ppt.git
+dsh plugin --profile <你的 profile> add ./dsh-skills-ppt
+```
+
+装完重启 DSH（新增 bundle 不会热加载）。
 
 装完重启 DSH（新增 bundle 不会热加载）。
 
