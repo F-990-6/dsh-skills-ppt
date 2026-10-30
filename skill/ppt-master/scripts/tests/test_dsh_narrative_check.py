@@ -247,6 +247,7 @@ class ResolveTargetTests(unittest.TestCase):
 
 
 REFERENCE_DOC = Path(__file__).resolve().parents[2] / "references" / "dsh-narrative.md"
+EXAMPLE_DOC = Path(__file__).resolve().parents[2] / "examples" / "narrative-evidence-arc.md"
 
 
 def _markdown_blocks(text: str) -> list[str]:
@@ -272,6 +273,17 @@ class DocumentedExampleTests(unittest.TestCase):
         report = checker.check_text(quick, target=Path("narrative.md"))
         self.assertTrue(report.ok, report.findings)
         self.assertEqual(report.slide_count, 4)
+
+
+class RepositoryExampleTests(unittest.TestCase):
+    """The shipped narrative example must stay valid against the checker."""
+
+    def test_shipped_example_passes(self) -> None:
+        report = checker.check_text(EXAMPLE_DOC.read_text(encoding="utf-8"), target=EXAMPLE_DOC)
+        self.assertTrue(report.ok, report.findings)
+        self.assertTrue(report.applicable)
+        self.assertEqual(report.slide_count, 4)
+        self.assertEqual(report.beats, list(checker.BEAT_ORDER))
 
 
 class CommandTests(unittest.TestCase):

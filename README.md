@@ -80,6 +80,7 @@ ctx.skills.register({
 - **触发**：客户演示、产品评审、立项 / 结项、路演、复盘、竞品对比、提案、卖点介绍。教学、参考、状态汇报默认不套，用户明确要求才套。Default 的 `design_spec.md` §III 无论套不套都记一行（`off — <原因>` 也是明确答案）；Quick 只在套用时写 `narrative.md`。
 - **不想用时**：在计划里写 `- **Narrative spine**: off — <原因>`，检查器按「不适用」放行。
 - **细则与反例**：`skill/ppt-master/references/dsh-narrative.md`；四页示例来自 `E:\dsh\projects\fjtcm-svc-demo_20261030`。
+- **示例文件**：`skill/ppt-master/examples/narrative-evidence-arc.md`，四页版原文件；测试会把它原样喂给检查器，格式漂移直接挂。
 - **确定性检查**（Default 在 Gate 1 之后、Quick 在导出之前）：
 
 ```bash
@@ -108,6 +109,7 @@ dsh-skills-ppt/
 ├── skill/ppt-master/       # 上游技能本体（SKILL.md + scripts + templates）
 │   ├── DSH_LAYER.md        # 本插件加的叙事层，注册时插到技能正文最前
 │   ├── references/dsh-narrative.md      # 四拍细则、字段、反例
+│   ├── examples/narrative-evidence-arc.md  # 四页版原文件（测试跑它）
 │   └── scripts/dsh_narrative_check.py   # 叙事骨架的确定性检查
 ├── cordis.patch.yml        # 唯一的一行装配：插入本插件
 ├── package.json

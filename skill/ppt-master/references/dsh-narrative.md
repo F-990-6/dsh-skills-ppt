@@ -186,6 +186,10 @@ design state.
 - **Boundary**: 失败多为接口超时，不是抢不到；30 次不是「全中」，是能进的窗口里一次没漏。
 ```
 
+A complete real file ships at [`examples/narrative-evidence-arc.md`](../examples/narrative-evidence-arc.md)
+— the four-page deck this layer came from, verbatim. The test suite runs it through
+the checker, so a format change that breaks real files fails before it reaches a deck.
+
 ## 5. Deterministic check
 
 `python3 ${SKILL_DIR}/scripts/dsh_narrative_check.py <project_path> [--require] [--json]`
