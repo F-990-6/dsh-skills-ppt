@@ -127,7 +127,7 @@ once, in this order.
 - **Relationships**: order 01→04；每一步对应第 2 页的一个耗时
 - **Title**: 四道工序，把请求送进开放那一秒
 - **Mapping**: 01 对时 → 本机时钟误差；02 巡检 → 24 小时盯屏；03 并行 → 多个活动同时开抢；04 重试 → 被拒后的空等
-- **Source**: 源码 http.py / worker.py（对时、巡检、并行、重试），2026-10
+- **Source**: 源码 抢活动.py / fjtcm-GrabActivities.py（对时、并行、重试），2026-10
 
 #### Slide 04 - What it did
 
@@ -175,7 +175,7 @@ design state.
 - **Beat**: method
 - **Title**: 四道工序，把请求送进开放那一秒
 - **Mapping**: 对时 → 时钟误差；巡检 → 盯屏；并行 → 多活动；重试 → 空等
-- **Source**: 源码 http.py / worker.py，2026-10
+- **Source**: 源码 抢活动.py / fjtcm-GrabActivities.py，2026-10
 
 ## Slide 04 — evidence
 
