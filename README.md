@@ -86,7 +86,7 @@ ctx.skills.register({
 python skill/ppt-master/scripts/dsh_narrative_check.py <项目目录> --require
 ```
 
-它读 `design_spec.md`，没有 spec 时读 `narrative.md`（Quick 的论证合同）。返回非零就改计划，不要改页面 SVG。
+它优先读 `design_spec.md`；若那份 spec 没记 spine 而项目里有 `narrative.md`，改读后者（Quick 的论证合同）。返回非零就改计划，不要改页面 SVG。
 
 上游文件只增补了 `narrative.md` 的所有权登记；`SKILL.md` 一个字没动，更新上游时可干净合并。
 
